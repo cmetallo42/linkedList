@@ -26,34 +26,28 @@ func (list *List) InsertFrontAny(a any) {
 }
 
 func (list *List) InsertLast(node *Node) {
-	for {
-		if list.head.next == nil {
-			list.head.next = node
-			break	
-		}
-		list.head = list.head.next
+	if list.head == nil {
+		list.InsertFront(node)
+		return
 	}
-
+	if list.len == 0 {
+		list.head = node
+	} else {
+		current := list.head
+		for current.next != nil {
+			current = current.next
+		}
+		current.next = node
+	}
 	list.len++
 }
 
 func (list *List) InsertLastAny(a any) {
-	node := Node{
-		Data: a,
-	}
-	list.len++
-
+	node := &Node{Data: a}
 	if list.head == nil {
-		list.head = &node
+		list.InsertFront(node)
 		return
 	}
 
-	for {
-		if list.head.next == nil {
-			list.head.next = &node
-			return	
-		}
-	
-		list.head = list.head.next
-	}
+	list.InsertLast(node)
 }
