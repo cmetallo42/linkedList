@@ -1,6 +1,6 @@
 package singlelinkedlist
 
-func (list *List) InsertFront(node *Node) {
+func (list *List) InsertFirst(node *Node) {
 	if list.head == nil {
 		list.head = node
 	} else {
@@ -11,7 +11,7 @@ func (list *List) InsertFront(node *Node) {
 	list.len++
 }
 
-func (list *List) InsertFrontAny(a any) {
+func (list *List) InsertFirstAny(a any) {
 	node := &Node{Data: a}
 	if list.head == nil {
 		list.head = node
@@ -25,7 +25,7 @@ func (list *List) InsertFrontAny(a any) {
 
 func (list *List) InsertLast(node *Node) {
 	if list.head == nil {
-		list.InsertFront(node)
+		list.InsertFirst(node)
 		return
 	}
 	current := list.head
@@ -39,8 +39,29 @@ func (list *List) InsertLast(node *Node) {
 func (list *List) InsertLastAny(a any) {
 	node := &Node{Data: a}
 	if list.head == nil {
-		list.InsertFront(node)
+		list.InsertFirst(node)
 	} else {
 		list.InsertLast(node)
 	}
+}
+
+func (list *List) InsertIndexAny(a any, i uint) {
+	node := &Node{Data: a}
+	list.InsertIndex(node, i)
+}
+
+func (list *List) InsertIndex(node *Node, i uint){
+	if i > list.len + 1 || i == 0 {
+		DisplayError("Index must be in range of 0 and length + 1")
+		return
+	}
+	if i == 1 {
+		list.InsertFirst(node)
+		return
+	}
+	currentPrev := list.NodeAt(i - 1)
+	current := list.NodeAt(i)
+	currentPrev.next = node
+	currentPrev.next.next = current
+	list.len++
 }

@@ -10,11 +10,11 @@ func (list *List) NodeAt(i uint) *Node {
 }
 
 func (list *List) DeleteIndex(i uint) {
-	if i == 0 {
-		DisplayError("Index must be more than 0")
+	if i > list.len || i == 0 {
+		DisplayError("Index must be less than length and more than 0")
 		return
 	}
-	if list.Len() == i {
+	if list.len == i {
 		list.DeleteLast()
 	} else if i == 1 {
 		list.DeleteFirst()
