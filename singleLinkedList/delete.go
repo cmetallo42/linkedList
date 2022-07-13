@@ -10,8 +10,27 @@ func (list *List) NodeAt(i uint) *Node {
 }
 
 func (list *List) DeleteIndex(i uint) {
-	tmpPrev := list.NodeAt(i - 1)
-	tmpPrev.next = list.NodeAt(i).next
+	if i == 0 {
+		DisplayError("Index must be more than 0")
+		return
+	}
+	if list.Len() == i {
+		list.DeleteLast()
+	} else if i == 1 {
+		list.DeleteFirst()
+	} else {
+		currentPrev := list.NodeAt(i - 1)
+		currentPrev.next = list.NodeAt(i).next
+		list.len--
+	}
+}
+
+func (list *List) DeleteFirst() {
+	if list.head.next == nil {
+		list.head = nil
+	} else {
+		list.head = list.head.next
+	}
 	list.len--
 }
 
