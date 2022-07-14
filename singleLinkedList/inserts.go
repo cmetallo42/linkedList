@@ -13,14 +13,7 @@ func (list *List) InsertFirst(node *Node) {
 
 func (list *List) InsertFirstAny(a any) {
 	node := &Node{Data: a}
-	if list.head == nil {
-		list.head = node
-	} else {
-		node.next = list.head
-		list.head = node
-	}
-
-	list.len++
+	list.InsertFirst(node)
 }
 
 func (list *List) InsertLast(node *Node) {
@@ -38,11 +31,7 @@ func (list *List) InsertLast(node *Node) {
 
 func (list *List) InsertLastAny(a any) {
 	node := &Node{Data: a}
-	if list.head == nil {
-		list.InsertFirst(node)
-	} else {
-		list.InsertLast(node)
-	}
+	list.InsertLast(node)
 }
 
 func (list *List) InsertIndexAny(a any, i uint) {
